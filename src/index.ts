@@ -1,2 +1,5 @@
 
-console.log("hello world")
+export default () => {
+    const [,, ...args] = process.argv
+    console.log("hello world", args)
+}
