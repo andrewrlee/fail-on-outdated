@@ -1,6 +1,6 @@
 {
   "name": "@andrewrlee/fail-on-outdated",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "A task that fails when dependencies are outdated",
   "main": "lib/index.js",
   "files": [
