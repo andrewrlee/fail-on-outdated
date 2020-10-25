@@ -13,11 +13,11 @@ jobs:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
     - run: npm install
-    - run: npm version $GITHUB_REF
+    - run: npm version ${{ env.GITHUB_REF }}
     - run: cat package.json 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
-        commit_message: Update version to $GITHUB_REF
+        commit_message: Update version to ${{ env.GITHUB_REF }}
         push_options: --force
     - run: npm publish --access public
       env:
