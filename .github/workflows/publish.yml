@@ -7,15 +7,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    # Setup .npmrc file to publish to npm
-    - uses: actions/setup-node@v1
+
+    - name: Set up node 
+      uses: actions/setup-node@v1
       with:
         node-version: '14.x'
         registry-url: 'https://registry.npmjs.org'
+
     - run: npm ci
-    - run: npm --no-git-tag-version version ${{ github.event.release.tag_name }}
-    - run: cat package.json 
-    - name: Commit changes
+    
+    - name: Update version in package.json
+      run: npm --no-git-tag-version version ${{ github.event.release.tag_name }}
+
+    - name: Commit changes to package.json
       uses: EndBug/add-and-commit@v5
       with:
         message: "Update version file for release"
@@ -23,6 +27,8 @@ jobs:
         branch: main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - run: npm publish --access public
+
+    - name: Publish package
+      run: npm publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
